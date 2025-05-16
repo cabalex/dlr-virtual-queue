@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DLR Lottie Archive</title>
+    <title>DLR Virtual Queues</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
   </head>
   <style>
@@ -406,6 +406,14 @@
             )
         : url;
     function load_anim(name) {
+      animations.map((x) => {
+        x.map((y) => {
+          y.destroy();
+        });
+      });
+      progressBars.map((x) => {
+        x.destroy();
+      });
       animations = [];
       progressBars = [];
       animationElem.innerHTML = "";
