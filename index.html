@@ -469,7 +469,10 @@
         }
       });
     }
+    let running = Date.now();
     async function run_state(newState) {
+      let currentRun = Date.now();
+      running = currentRun;
       if (state !== -1) {
         let oldState = animations[state];
         for (let i = 0; i < oldState.length; i++) {
@@ -498,6 +501,10 @@
           oldProgressBar.renderer.svgElement.style.display = "none";
           oldProgressBar.stop();
         }
+      }
+      // If the user selects a new animation while the current one is running, we need to stop the current one
+      if (currentRun !== running) {
+        return;
       }
       if (newState === -1) {
         state = -1;
@@ -538,6 +545,10 @@
             resolve();
           });
         });
+        // If the user selects a new animation while the current one is running, we need to stop the current one
+        if (currentRun !== running) {
+          return;
+        }
       }
     }
     load_anim("rise");
