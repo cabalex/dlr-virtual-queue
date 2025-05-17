@@ -405,15 +405,28 @@
               "."
             )
         : url;
-    function load_anim(name) {
-      animations.map((x) => {
-        x.map((y) => {
-          y.destroy();
-        });
-      });
-      progressBars.map((x) => {
-        x.destroy();
-      });
+    async function fetch_asset(url) {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.text();
+      return data;
+    }
+    let currentAnimation = null;
+    let currentProgressBar = null;
+    async function load_anim(name) {
+      if (currentAnimation) {
+        currentAnimation.stop();
+        currentAnimation.destroy();
+        currentAnimation = null;
+      }
+      if (currentProgressBar) {
+        currentProgressBar.stop();
+        currentProgressBar.destroy();
+        currentProgressBar = null;
+      }
+
       animations = [];
       progressBars = [];
       animationElem.innerHTML = "";
@@ -424,90 +437,69 @@
       for (let stage of anim) {
         const state = [];
         if (stage.pre) {
-          state.push(
-            bodymovin.loadAnimation({
+          state.push(await fetch_asset(getURL(stage.pre)));
+          /*bodymovin.loadAnimation({
               container: animationElem,
               renderer: "svg",
               loop: false,
               autoplay: false,
               path: getURL(stage.pre),
             })
-          );
+          );*/
         }
-        state.push(
-          bodymovin.loadAnimation({
-            container: animationElem,
-            renderer: "svg",
-            loop: true,
-            autoplay: false,
-            path: getURL(stage.url),
-          })
-        );
-        state.map((x) => (x.renderer.svgElement.style.display = "none"));
+        state.push(await fetch_asset(getURL(stage.url)));
         animations.push(state);
       }
 
       // load progress bars
       let progress = PROGRESS_BARS[name] ?? PROGRESS_BARS.default;
       for (let i = 0; i < progress.length; i++) {
-        const stage = progress[i];
-        const progressBar = bodymovin.loadAnimation({
-          container: progressBarElem,
-          renderer: "svg",
-          loop: false,
-          autoplay: false,
-          path: getURL(stage),
-        });
-        progressBar.renderer.svgElement.style.display = "none";
-        progressBars.push(progressBar);
+        progressBars.push(await fetch_asset(getURL(progress[i])));
       }
       let loaded = [false, false];
       const firstAnimation = animations[0][0];
       const progressBar = progressBars[0];
-      firstAnimation.addEventListener("DOMLoaded", () => {
-        loaded[0] = true;
-        if (loaded[0] && loaded[1]) {
-          setLoading(false);
-        }
+      currentAnimation = bodymovin.loadAnimation({
+        container: animationElem,
+        renderer: "svg",
+        loop: true,
+        autoplay: false,
+        animationData: JSON.parse(firstAnimation),
       });
-      progressBar.addEventListener("DOMLoaded", () => {
-        loaded[1] = true;
-        if (loaded[0] && loaded[1]) {
-          setLoading(false);
-        }
+      currentProgressBar = bodymovin.loadAnimation({
+        container: progressBarElem,
+        renderer: "svg",
+        loop: false,
+        autoplay: false,
+        animationData: JSON.parse(progressBar),
       });
+      setLoading(false);
     }
     let running = Date.now();
     async function run_state(newState) {
       let currentRun = Date.now();
       running = currentRun;
+
       if (state !== -1) {
         let oldState = animations[state];
-        for (let i = 0; i < oldState.length; i++) {
-          const step = oldState[i];
-          if (!step.isPaused) {
-            // run until end
-            let loops = step.loop;
-            step.loop = false;
-            await new Promise((resolve) => {
-              step.addEventListener("complete", () => {
-                step.stop();
-                step.loop = loops;
-                step.renderer.svgElement.style.display = "none";
-                resolve();
-              });
-            });
-          }
-          step.renderer.svgElement.style.display = "none";
+        // wait until old one is done
+        let loops = currentAnimation.loop;
+        if (loops) {
+          currentAnimation.loop = false;
         }
+        await new Promise((resolve) => {
+          currentAnimation.addEventListener("complete", () => {
+            currentAnimation.loop = loops;
+            resolve();
+          });
+        });
 
         let oldProgressBar =
           progressBars[
             LOTTIE_FILES[animationSelect.value][state].state ?? state
           ];
         if (oldProgressBar) {
-          oldProgressBar.renderer.svgElement.style.display = "none";
-          oldProgressBar.stop();
+          currentProgressBar.stop();
         }
       }
       // If the user selects a new animation while the current one is running, we need to stop the current one
@@ -531,25 +523,50 @@
         textElem.style.animation = "";
       }, 500);
 
+      // destroy old animation
+      if (currentProgressBar) {
+        currentProgressBar.stop();
+        currentProgressBar.destroy();
+        currentProgressBar = null;
+      }
+
       // load new progress bar
-      let progressBar =
-        progressBars[LOTTIE_FILES[animationSelect.value][state].state ?? state];
+      let progressBarState =
+        LOTTIE_FILES[animationSelect.value][state].state ?? state;
+      let progressBar = progressBars[progressBarState];
       if (progressBar) {
-        console.log("progress bar", progressBar);
-        progressBar.renderer.svgElement.style.display = "block";
-        progressBar.goToAndPlay(0, true);
+        console.log("progress bar", progressBarState);
+        currentProgressBar = bodymovin.loadAnimation({
+          container: progressBarElem,
+          renderer: "svg",
+          loop: false,
+          autoplay: false,
+          animationData: JSON.parse(progressBar),
+        });
+        currentProgressBar.goToAndPlay(0, true);
       }
 
       for (let i = 0; i < states.length; i++) {
+        if (currentAnimation) {
+          currentAnimation.stop();
+          currentAnimation.destroy();
+          currentAnimation = null;
+        }
         const step = states[i];
-        console.log("animation", step);
-        step.renderer.svgElement.style.display = "block";
-        step.goToAndPlay(0, true);
-        if (step.loop) break;
+        // Lottie mutates JSON data, so we need to deepclone it to prevent memory leaks
+        // https://github.com/airbnb/lottie-web/issues/1159
+        currentAnimation = bodymovin.loadAnimation({
+          container: animationElem,
+          renderer: "svg",
+          loop: i === states.length - 1,
+          autoplay: true,
+          animationData: JSON.parse(step),
+        });
+        currentAnimation.goToAndPlay(0, true);
+        console.log("loading animation", newState, i);
+        if (currentAnimation.loop) break;
         await new Promise((resolve) => {
-          step.addEventListener("complete", () => {
-            step.stop();
-            step.renderer.svgElement.style.display = "none";
+          currentAnimation.addEventListener("complete", () => {
             resolve();
           });
         });
@@ -559,8 +576,12 @@
         }
       }
     }
-    load_anim("rise");
-    run_state(0);
+    nextBtn.disabled = true;
+    load_anim("rise").then(() => {
+      run_state(0).then(() => {
+        nextBtn.disabled = false;
+      });
+    });
 
     nextBtn.onclick = async () => {
       nextBtn.disabled = true;
@@ -575,7 +596,7 @@
     animationSelect.onchange = async (e) => {
       nextBtn.disabled = true;
       state = -1;
-      load_anim(e.target.value);
+      await load_anim(e.target.value);
       await run_state(0);
       nextBtn.innerText = "Next state";
       nextBtn.disabled = false;
