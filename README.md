@@ -11,8 +11,8 @@ This is a public archive of all existing Virtual Queue (VQ) assets at the DLR, s
 | Tiana's Bayou Adventure              | `tiana_grand`            | `TianasBA`        | DL   | May 30, 2024       | November 7, 2024   |
 | Web Slingers: A Spider-Man Adventure | `webslingers`            | `webslingers`     | DCA  | May 21, 2021       | August 5, 2021     |
 | World of Color                       | `woc-sol`                | `WILB_DCA`        | DCA  | April 13, 2022     | September 25, 2023 |
-| Rogers: The Musica l                 | `hyperion`               | `WILB_DCA`        | DCA  | April 13, 2022     | August 21, 2023    |
-| World of Color (un used)             | `woc-blue`               | `World_of_Color`  | DCA  | January 3, 2025    | January 15, 2025   |
+| Rogers: The Musical                  | `hyperion`               | `WILB_DCA`        | DCA  | April 13, 2022     | August 21, 2023    |
+| World of Color (unused)              | `woc-blue`               | `World_of_Color`  | DCA  | January 3, 2025    | January 15, 2025   |
 | RunDisney                            | `run-disney`             | `WIL.B_runDisney` |      | September 22, 2023 | January 22, 2025   |
 | Generic                              | `default`                | `generic`         |      | July 18, 2020      | January 31, 2021   |
 | Generic (DL)                         | _(not used)_             | `dlr`             | DLR  | November 12, 2020  | _(not in app)_     |
@@ -67,11 +67,11 @@ Disney also uses virtual queues at events such as D23, but they don't make uniqu
     - (5) _Success! You’re ready to enter._
   - Magic Key merchandise pickup at Hyperion Theater Courtyard (`magic-key`)
     - Uses the same animations and taglines as World of Color (`WILB_DCA`)
-  - Tiana's Bayou Adventure Cast Previews (`tiana-cast-V2`) and Tiana's Bayou Adventure Magic Key Previews (`tiana-magic-key`)
-    - Uses the same animations and taglines as the public VQ (`tiana-grand`)
-  - World of Color, Yellow entrance (`woc-yellow`)
-    - Uses the same animations and taglines as the Yellow/Blue entrance (`woc-sol`)
-    - Directions point to "Head to the yellow section by the Golden Zephyr" instead of "Head to either the Yellow or Blue entrance".
+- Tiana's Bayou Adventure Cast Previews (`tiana-cast-V2`) and Tiana's Bayou Adventure Magic Key Previews (`tiana-magic-key`)
+  - Uses the same animations and taglines as the public VQ (`tiana-grand`)
+- World of Color, Yellow entrance (`woc-yellow`)
+  - Uses the same animations and taglines as the Yellow/Blue entrance (`woc-sol`)
+  - Directions point to "Head to the yellow section by the Golden Zephyr" instead of "Head to either the Yellow or Blue entrance".
 
 ## Archival notes
 
@@ -89,6 +89,7 @@ Each Virtual Queue asset contains a relative path URL (`/lottie/...`) and an abs
 - The unused generic DCA assets are located in the relative paths for Haunted Mansion Holiday. However, the second and third stages are located in the `/dlr/` folder instead, and vice versa for the generic DLR assets.
 - MMRR was copied from Web Slinger's virtual queue, and maintains its relative path URLs.
 - Rise of the Resistance is the only Virtual Queue to use "ambient" animations (differentiated into `humorAnimUrls` and `idleAnimUrls`), of which there are 6 "humor" animations and 9 "idle" animations. You can view them under "Rise of the Resistance - Ambient".
+- The internal name for the Haunted Mansion Holiday VQ is "villainsGrove"... meaning it was meant to be used for that attraction during Oogie Boogie Bash at some point.
 - World of Color naming conventions imply they tested having VQ use Yellow and Blue entrances for Season of Light, the holiday version (`woc-sol`), and found it worked well enough to keep using it.
 - All virtual queues have an unused second tagline that does not change.
   - (0) _Your virtual wait has begun._
