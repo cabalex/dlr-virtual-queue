@@ -67,23 +67,46 @@
       align-items: center;
       transition: opacity 0.5s ease-in-out;
     }
-    #next-button {
+    .btnrow {
       position: fixed;
       bottom: 10px;
       left: 5%;
       right: 5%;
-      padding: 20px;
       max-width: 800px;
       margin: 0 auto;
+      display: flex;
+    }
+    .btnrow > * {
+      padding: 20px;
       font-size: unset;
+      width: 100%;
+      height: 100%;
+    }
+    #skip-button {
+      margin-left: 0.5em;
+      width: 140px;
+      overflow: hidden;
+      padding: 20px 0;
+    }
+    #skip-button:not(.hidden) {
+      transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+    }
+    #skip-button.hidden {
+      width: 0;
+      border-width: 0;
+      margin-left: 0;
     }
   </style>
   <body>
     <select id="animation-select">
-      <option value="generic">Generic</option>
-      <option value="run">RunDisney</option>
+      <optgroup label="Generic">
+        <option value="generic">Generic</option>
+        <option value="dlr">Generic (DLR)</option>
+        <option value="dca">Generic (DCA)</option>
+      </optgroup>
       <optgroup label="Disneyland">
         <option value="rise" selected>Rise of the Resistance</option>
+        <option value="rise_ambient">Rise of the Resistance (ambient)</option>
         <option value="mmrr">Mickey and Minnie's Runaway Railway</option>
         <option value="indy">Indiana Jones Adventure</option>
         <option value="villainsgrove">Haunted Mansion Holiday</option>
@@ -91,16 +114,21 @@
       </optgroup>
       <optgroup label="Disney California Adventure">
         <option value="web">Web Slingers: A Spider-Man Adventure</option>
-        <option value="woc">World of Color / Hyperion</option>
+        <option value="woc">World of Color</option>
+        <option value="hyperion">Rogers: The Musical (Hyperion Theater)</option>
         <option value="woc_unused">World of Color (unused)</option>
       </optgroup>
+      <option value="run">RunDisney</option>
     </select>
     <div id="loader"></div>
     <main>
       <div id="animation"></div>
       <p id="text"></p>
       <div id="progress-bar"></div>
-      <button id="next-button">Next state</button>
+      <div class="btnrow">
+        <button id="next-button">Next state</button>
+        <button id="skip-button">Skip</button>
+      </div>
     </main>
   </body>
   <script>
@@ -120,6 +148,7 @@
     const animationElem = document.getElementById("animation");
     const progressBarElem = document.getElementById("progress-bar");
     const nextBtn = document.getElementById("next-button");
+    const skipBtn = document.getElementById("skip-button");
     const animationSelect = document.getElementById("animation-select");
     const textElem = document.getElementById("text");
 
@@ -130,13 +159,44 @@
       generic: [
         {
           url: "https://cdn1.parksmedia.wdprapps.disney.com/dam/disneyland/app/vq/lottie/generic/vq_generic_01.json",
-          text: "Sprinkling a bit of pixie dust.",
+          text: "Preparing the magic.",
           state: 0,
+        },
+        {
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/dam/disneyland/app/vq/lottie/generic/vq_generic_01.json",
+          text: "Sprinkling a bit of pixie dust.",
+          state: 1,
         },
         {
           pre: "https://cdn1.parksmedia.wdprapps.disney.com/dam/disneyland/app/vq/lottie/generic/vq_generic_02.json",
           url: "https://cdn1.parksmedia.wdprapps.disney.com/dam/disneyland/app/vq/lottie/generic/vq_generic_03.json",
           text: "Success! You’re ready to enter.",
+          state: 5,
+        },
+      ],
+      dca: [
+        {
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/dam/disneyland/app/vq/lottie/dca/vq_dca_01.json",
+          text: "",
+          state: 0,
+        },
+        {
+          pre: "https://cdn1.parksmedia.wdprapps.disney.com/dam/disneyland/app/vq/lottie/dlr/vq_dlr_02.json",
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/dam/disneyland/app/vq/lottie/dlr/vq_dlr_03.json",
+          text: "",
+          state: 5,
+        },
+      ],
+      dlr: [
+        {
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/dam/disneyland/app/vq/lottie/dlr/vq_dlr_01.json",
+          text: "",
+          state: 0,
+        },
+        {
+          pre: "https://cdn1.parksmedia.wdprapps.disney.com/dam/disneyland/app/vq/lottie/dca/vq_dca_02.json",
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/dam/disneyland/app/vq/lottie/dca/vq_dca_03.json",
+          text: "",
           state: 5,
         },
       ],
@@ -169,7 +229,88 @@
           state: 5,
         },
       ],
+      rise_ambient: [
+        {
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/dam/disneyland/app/vq/lottie/000_ambient_badMotivator.json",
+          text: "Ambient - Bad Motivator",
+          state: 0,
+        },
+        {
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/dam/disneyland/app/vq/lottie/000_ambient_blueMilk.json",
+          text: "Ambient - Blue Milk",
+          state: 0,
+        },
+        {
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/dam/disneyland/app/vq/lottie/000_ambient_lothCat.json",
+          text: "Ambient - Loth Cat",
+          state: 1,
+        },
+        {
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/dam/disneyland/app/vq/lottie/000_ambient_porg.json",
+          text: "Ambient - Porg",
+          state: 1,
+        },
+        {
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/dam/disneyland/app/vq/lottie/000_ambient_random.json",
+          text: "Ambient - Random",
+          state: 1,
+        },
+        {
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/dam/disneyland/app/vq/lottie/000_ambient_surprise.json",
+          text: "Ambient - Surprise",
+          state: 2,
+        },
+        {
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/dam/disneyland/app/vq/lottie/000_ambient01.json",
+          text: "Ambient - 01",
+          state: 2,
+        },
+        {
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/dam/disneyland/app/vq/lottie/000_ambient02.json",
+          text: "Ambient - 02",
+          state: 2,
+        },
+        {
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/dam/disneyland/app/vq/lottie/000_ambient03.json",
+          text: "Ambient - 03",
+          state: 3,
+        },
+        {
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/dam/disneyland/app/vq/lottie/000_ambient04.json",
+          text: "Ambient - 04",
+          state: 3,
+        },
+        {
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/dam/disneyland/app/vq/lottie/000_ambient05.json",
+          text: "Ambient - 05",
+          state: 3,
+        },
+        {
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/dam/disneyland/app/vq/lottie/000_ambient06.json",
+          text: "Ambient - 06",
+          state: 4,
+        },
+        {
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/dam/disneyland/app/vq/lottie/000_ambient07.json",
+          text: "Ambient - 07",
+          state: 4,
+        },
+        {
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/dam/disneyland/app/vq/lottie/000_ambient08.json",
+          text: "Ambient - 08",
+          state: 4,
+        },
+        {
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/dam/disneyland/app/vq/lottie/000_ambient09.json",
+          text: "Ambient - 09",
+          state: 5,
+        },
+      ],
       web: [
+        {
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/dam/disneyland/app/vq/lottie/web/vq_webslingers_waiting_loop.json",
+          text: "You’re in line!",
+        },
         {
           url: "https://cdn1.parksmedia.wdprapps.disney.com/dam/disneyland/app/vq/lottie/web/vq_webslingers_waiting_loop.json",
           text: "Tapping into Spidey-senses.",
@@ -192,6 +333,10 @@
         },
       ],
       indy: [
+        {
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/dam/disneyland/app/vq/lottie/indy/vq_indy_01.json",
+          text: "You’re in line!",
+        },
         {
           url: "https://cdn1.parksmedia.wdprapps.disney.com/dam/disneyland/app/vq/lottie/indy/vq_indy_01.json",
           text: "Prepping equipment",
@@ -241,6 +386,33 @@
           text: "Success! You’re ready to enter.",
         },
       ],
+      hyperion: [
+        {
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/vision-dam/digital/parks-platform/parks-standard-assets/virtual-que/VQ_WILB_DCA_Stage0_v2.json",
+          text: "Preparing the magic.",
+        },
+        {
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/vision-dam/digital/parks-platform/parks-standard-assets/virtual-que/VQ_WILB_DCA_Stage1_v2.json",
+          text: "Sprinkling a bit of pixie dust.",
+        },
+        {
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/vision-dam/digital/parks-platform/parks-standard-assets/virtual-que/VQ_WILB_DCA_Stage2_v1.json",
+          text: "Sprinkling a bit of pixie dust.",
+        },
+        {
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/vision-dam/digital/parks-platform/parks-standard-assets/virtual-que/VQ_WILB_DCA_Stage3_v1.json",
+          text: "Sprinkling a bit of pixie dust.",
+        },
+        {
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/vision-dam/digital/parks-platform/parks-standard-assets/virtual-que/VQ_WILB_DCA_Stage4_v2.json",
+          text: "Sprinkling a bit of pixie dust.",
+        },
+        {
+          pre: "https://cdn1.parksmedia.wdprapps.disney.com/vision-dam/digital/parks-platform/parks-standard-assets/virtual-que/VQ_WILB_DCA_Stage5_v1.json",
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/vision-dam/digital/parks-platform/parks-standard-assets/virtual-que/VQ_WILB_DCA_Stage6_v1.json",
+          text: "Success! You’re ready to enter.",
+        },
+      ],
       woc_unused: [
         {
           url: "https://cdn1.parksmedia.wdprapps.disney.com/vision-dam/digital/parks-platform/parks-standard-assets/virtual-que/world-of-color/VQ_World_of_Color_01Intro_111323_v1.json",
@@ -263,7 +435,7 @@
         {
           url: "https://cdn1.parksmedia.wdprapps.disney.com/vision-dam/digital/parks-platform/parks-standard-assets/virtual-que/VQ_villainsGrove_step1-4_v1.json",
           text: "“Whoa, what was that? Let's get outta here!”",
-          state: 4,
+          state: 1,
         },
         {
           pre: "https://cdn1.parksmedia.wdprapps.disney.com/vision-dam/digital/parks-platform/parks-standard-assets/virtual-que/VQ_villainsGrove_step5Transition_v1.json",
@@ -273,6 +445,11 @@
         },
       ],
       mmrr: [
+        {
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/vision-dam/digital/parks-platform/parks-standard-assets/virtual-que/mickeys-runaway/VQ_MMRR_DLR_state01.json",
+          text: "Congrats! You’re on your way!",
+          state: 0,
+        },
         {
           url: "https://cdn1.parksmedia.wdprapps.disney.com/vision-dam/digital/parks-platform/parks-standard-assets/virtual-que/mickeys-runaway/VQ_MMRR_DLR_state01.json",
           text: "Chuggin’ along!",
@@ -302,7 +479,11 @@
       ],
       run: [
         {
-          pre: "https://cdn1.parksmedia.wdprapps.disney.com/vision-dam/digital/parks-platform/parks-standard-assets/virtual-que/run-disney/VQ_WIL.B_runDisney_Stage0_082423_v1.json",
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/vision-dam/digital/parks-platform/parks-standard-assets/virtual-que/run-disney/VQ_WIL.B_runDisney_Stage0_082423_v1.json",
+          text: "You’re in line!",
+          state: 0,
+        },
+        {
           url: "https://cdn1.parksmedia.wdprapps.disney.com/vision-dam/digital/parks-platform/parks-standard-assets/virtual-que/run-disney/VQ_WIL.B_runDisney_Stage1_082423_v1.json",
           text: "Initiate hydration sequence.",
           state: 1,
@@ -393,6 +574,7 @@
         loader.goToAndPlay(0);
       }
     }
+    let cache = {};
     const getURL = (url) =>
       USE_LOCAL_FILES
         ? url
@@ -406,11 +588,15 @@
             )
         : url;
     async function fetch_asset(url) {
+      if (cache[url]) {
+        return cache[url];
+      }
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
       const data = await response.text();
+      cache[url] = data;
       return data;
     }
     let currentAnimation = null;
@@ -429,6 +615,7 @@
 
       animations = [];
       progressBars = [];
+      cache = {};
       animationElem.innerHTML = "";
       progressBarElem.innerHTML = "";
       setLoading(true);
@@ -476,11 +663,11 @@
       setLoading(false);
     }
     let running = Date.now();
-    async function run_state(newState) {
+    async function run_state(newState, force = false) {
       let currentRun = Date.now();
       running = currentRun;
 
-      if (state !== -1) {
+      if (state !== -1 && !force) {
         let oldState = animations[state];
         // wait until old one is done
         let loops = currentAnimation.loop;
@@ -493,6 +680,10 @@
             resolve();
           });
         });
+        // If the user selects a new animation while the current one is running, we need to stop the current one
+        if (currentRun !== running) {
+          return false;
+        }
 
         let oldProgressBar =
           progressBars[
@@ -502,13 +693,9 @@
           currentProgressBar.stop();
         }
       }
-      // If the user selects a new animation while the current one is running, we need to stop the current one
-      if (currentRun !== running) {
-        return;
-      }
       if (newState === -1) {
         state = -1;
-        return;
+        return false;
       }
       textElem.style.opacity = 0;
 
@@ -562,6 +749,7 @@
           autoplay: true,
           animationData: JSON.parse(step),
         });
+        animationElem.setAttribute("title", currentAnimation.animationData.nm);
         currentAnimation.goToAndPlay(0, true);
         console.log("loading animation", newState, i);
         if (currentAnimation.loop) break;
@@ -572,34 +760,61 @@
         });
         // If the user selects a new animation while the current one is running, we need to stop the current one
         if (currentRun !== running) {
-          return;
+          return false;
         }
       }
+      return true;
     }
     nextBtn.disabled = true;
     load_anim("rise").then(() => {
       run_state(0).then(() => {
+        skipBtn.classList.add("hidden");
         nextBtn.disabled = false;
       });
     });
 
     nextBtn.onclick = async () => {
       nextBtn.disabled = true;
-      await run_state(state + 1);
-      if (state === animations.length - 1) {
-        nextBtn.innerText = "Restart";
-      } else {
-        nextBtn.innerText = "Next state";
+      skipBtn.classList.remove("hidden");
+      nextBtn.innerText = "Next state";
+      const success = await run_state(state + 1);
+      if (success) {
+        if (state === animations.length - 1) {
+          nextBtn.innerText = "Restart";
+        } else {
+          nextBtn.innerText = "Next state";
+        }
+        nextBtn.disabled = false;
+        skipBtn.classList.add("hidden");
       }
-      nextBtn.disabled = false;
+    };
+    skipBtn.onclick = async () => {
+      nextBtn.disabled = true;
+      skipBtn.classList.add("hidden");
+      nextBtn.innerText = "Next state";
+      const success = await run_state(state + 1, true);
+      console.log("skip", success);
+      if (success) {
+        if (state === animations.length - 1) {
+          nextBtn.innerText = "Restart";
+        } else {
+          nextBtn.innerText = "Next state";
+        }
+        nextBtn.disabled = false;
+      }
     };
     animationSelect.onchange = async (e) => {
       nextBtn.disabled = true;
+      skipBtn.classList.remove("hidden");
+      nextBtn.innerText = "Next state";
       state = -1;
       await load_anim(e.target.value);
-      await run_state(0);
-      nextBtn.innerText = "Next state";
-      nextBtn.disabled = false;
+      const success = await run_state(0);
+      if (success) {
+        nextBtn.innerText = "Next state";
+        nextBtn.disabled = false;
+        skipBtn.classList.add("hidden");
+      }
     };
   </script>
 </html>
