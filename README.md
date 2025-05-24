@@ -10,9 +10,9 @@ This is a public archive of all existing Virtual Queue (VQ) assets at the DLR, s
 | Haunted Mansion Holiday              | `haunted_mansion`        | `villainsGrove`   | DL   | July 16, 2024      | July 30, 2024      |
 | Tiana's Bayou Adventure              | `tiana_grand`            | `TianasBA`        | DL   | May 30, 2024       | November 7, 2024   |
 | Web Slingers: A Spider-Man Adventure | `webslingers`            | `webslingers`     | DCA  | May 21, 2021       | August 5, 2021     |
-| World of Color                       | `woc-sol`                | `WILB_DCA`        | DCA  | April 13, 2022     | September 25, 2023 |
+| World of Color (2023-2025)           | `woc-sol`                | `WILB_DCA`        | DCA  | April 13, 2022     | September 25, 2023 |
 | Rogers: The Musical                  | `hyperion`               | `WILB_DCA`        | DCA  | April 13, 2022     | August 21, 2023    |
-| World of Color (unused)              | `woc-blue`               | `World_of_Color`  | DCA  | January 3, 2025    | January 15, 2025   |
+| World of Color (2025-)               | `woc-blue`               | `World_of_Color`  | DCA  | January 3, 2025    | January 15, 2025   |
 | RunDisney                            | `run-disney`             | `WIL.B_runDisney` |      | September 22, 2023 | January 22, 2025   |
 | Generic                              | `default`                | `generic`         |      | July 18, 2020      | January 31, 2021   |
 | Generic (DL)                         | _(not used)_             | `dlr`             | DLR  | November 12, 2020  | _(not in app)_     |
@@ -65,12 +65,12 @@ Disney also uses virtual queues at events such as D23, but they don't make uniqu
     - (0) _You're in the virtual queue!_
     - (1-4) _Enjoy D23: The Ultimate Disney Fan Event 2024 while you wait._
     - (5) _Success! You’re ready to enter._
-  - Magic Key merchandise pickup at Hyperion Theater Courtyard (`magic-key`)
-    - Uses the same animations and taglines as World of Color (`WILB_DCA`)
+- Magic Key merchandise pickup at Hyperion Theater Courtyard (`magic-key`)
+  - Uses the same animations and taglines as the former World of Color VQ (`WILB_DCA`)
 - Tiana's Bayou Adventure Cast Previews (`tiana-cast-V2`) and Tiana's Bayou Adventure Magic Key Previews (`tiana-magic-key`)
   - Uses the same animations and taglines as the public VQ (`tiana-grand`)
 - World of Color, Yellow entrance (`woc-yellow`)
-  - Uses the same animations and taglines as the Yellow/Blue entrance (`woc-sol`)
+  - Uses the same animations and taglines as the former Yellow/Blue entrance (`woc-sol`)
   - Directions point to "Head to the yellow section by the Golden Zephyr" instead of "Head to either the Yellow or Blue entrance".
 
 ## Archival notes
@@ -90,7 +90,7 @@ Each Virtual Queue asset contains a relative path URL (`/lottie/...`) and an abs
 - MMRR was copied from Web Slinger's virtual queue, and maintains its relative path URLs.
 - Rise of the Resistance is the only Virtual Queue to use "ambient" animations (differentiated into `humorAnimUrls` and `idleAnimUrls`), of which there are 6 "humor" animations and 9 "idle" animations. You can view them under "Rise of the Resistance - Ambient".
 - The internal name for the Haunted Mansion Holiday VQ is "villainsGrove"... meaning it was meant to be used for that attraction during Oogie Boogie Bash at some point.
-- World of Color naming conventions imply they tested having VQ use Yellow and Blue entrances for Season of Light, the holiday version (`woc-sol`), and found it worked well enough to keep using it.
+- I'm unsure if World of Color was supposed to use different animations during Season of Light (`woc-sol`), as no other files for other iterations of the show (One, Happiness, etc) exist in the files. `woc-yellow` remains from when World of Color used to have different boarding groups for the Yellow and Blue entrances (now they're combined).
 - All virtual queues have an unused second tagline that does not change.
   - (0) _Your virtual wait has begun._
   - (1-4) _Boarding group waiting to be called_
