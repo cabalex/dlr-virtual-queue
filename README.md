@@ -2,21 +2,24 @@
 
 This is a public archive of all existing Virtual Queue (VQ) assets at the DLR, since I don't think anyone has archived them in an easy-to-view way. Currently, it includes:
 
-| Name                                 | ID                       | Animation ID      | Park | Last Updated (CDN) | Last Updated (App) |
-| ------------------------------------ | ------------------------ | ----------------- | ---- | ------------------ | ------------------ |
-| Rise of the Resistance               | `rise-of-the-resistance` | _(none)_          | DL   | April 18, 2019     | August 5, 2021     |
-| Mickey and Minnie's Runaway Railway  | `mmrr`                   | `MMRR`            | DL   | January 17, 2023   | January 27, 2023   |
-| Indiana Jones Adventure              | `indiana-jones`          | `indy`            | DL   | May 10, 2021       | May 11, 2021       |
-| Haunted Mansion Holiday              | `haunted_mansion`        | `villainsGrove`   | DL   | July 16, 2024      | July 30, 2024      |
-| Tiana's Bayou Adventure              | `tiana_grand`            | `TianasBA`        | DL   | May 30, 2024       | November 7, 2024   |
-| Web Slingers: A Spider-Man Adventure | `webslingers`            | `webslingers`     | DCA  | May 21, 2021       | August 5, 2021     |
-| World of Color (2023-2025)           | `woc-sol`                | `WILB_DCA`        | DCA  | April 13, 2022     | September 25, 2023 |
-| Rogers: The Musical                  | `hyperion`               | `WILB_DCA`        | DCA  | April 13, 2022     | August 21, 2023    |
-| World of Color (2025-)               | `woc-blue`               | `World_of_Color`  | DCA  | January 3, 2025    | January 15, 2025   |
-| RunDisney                            | `run-disney`             | `WIL.B_runDisney` |      | September 22, 2023 | January 22, 2025   |
-| Generic                              | `default`                | `generic`         |      | July 18, 2020      | January 31, 2021   |
-| Generic (DL)                         | _(not used)_             | `dlr`             | DLR  | November 12, 2020  | _(not in app)_     |
-| Generic (DCA)                        | _(not used)_             | `dca`             | DCA  | November 12, 2020  | _(not in app)_     |
+| Name                                 | ID                       | Animation ID                 | Park | Last Updated (CDN) | Last Updated (App) |
+| ------------------------------------ | ------------------------ | ---------------------------- | ---- | ------------------ | ------------------ |
+| Rise of the Resistance               | `rise-of-the-resistance` | _(none)_                     | DL   | April 18, 2019     | August 5, 2021     |
+| Mickey and Minnie's Runaway Railway  | `mmrr`                   | `MMRR`                       | DL   | January 17, 2023   | January 27, 2023   |
+| Indiana Jones Adventure              | `indiana-jones`          | `indy`                       | DL   | May 10, 2021       | May 11, 2021       |
+| Haunted Mansion Holiday              | `haunted_mansion`        | `villainsGrove`              | DL   | July 16, 2024      | July 30, 2024      |
+| Tiana's Bayou Adventure              | `tiana_grand`            | `TianasBA`                   | DL   | May 30, 2024       | November 7, 2024   |
+| Great Moments with Mr. Lincoln       | `lincoln`                | `VQ_Walt` (`LincolnVersion`) | DL   | July 10, 2025      | July 11, 2025      |
+| Walt Disney - A Magical Life         | `walt`                   | `VQ_Walt` (`WaltVersion`)    | DL   | July 10, 2025      | July 11, 2025      |
+| Web Slingers: A Spider-Man Adventure | `webslingers`            | `webslingers`                | DCA  | May 21, 2021       | August 5, 2021     |
+| World of Color (2023-2025)           | `woc-sol`                | `WILB_DCA`                   | DCA  | April 13, 2022     | September 25, 2023 |
+| Rogers: The Musical                  | `hyperion`               | `WILB_DCA`                   | DCA  | April 13, 2022     | August 21, 2023    |
+| World of Color (2025-)               | `woc-blue`               | `World_of_Color`             | DCA  | January 3, 2025    | January 15, 2025   |
+| RunDisney                            | `run-disney`             | `WIL.B_runDisney`            |      | September 22, 2023 | January 22, 2025   |
+| Brooks (RunDisney Pop-up)            | `brooks`                 | `DLRResort`                  |      | August 25, 2022    | August 22, 2025    |
+| Generic                              | `default`                | `generic`                    |      | July 18, 2020      | January 31, 2021   |
+| Generic (DL)                         | _(not used)_             | `dlr`                        | DLR  | November 12, 2020  | _(not in app)_     |
+| Generic (DCA)                        | _(not used)_             | `dca`                        | DCA  | November 12, 2020  | _(not in app)_     |
 
 _Note: Stages with duplicate animations and taglines are skipped during playback._
 
@@ -90,6 +93,7 @@ Each Virtual Queue asset contains a relative path URL (`/lottie/...`) and an abs
 - MMRR was copied from Web Slinger's virtual queue, and maintains its relative path URLs.
 - Rise of the Resistance is the only Virtual Queue to use "ambient" animations (differentiated into `humorAnimUrls` and `idleAnimUrls`), of which there are 6 "humor" animations and 9 "idle" animations. You can view them under "Rise of the Resistance - Ambient".
 - The internal name for the Haunted Mansion Holiday VQ is "villainsGrove"... meaning it was meant to be used for that attraction during Oogie Boogie Bash at some point.
+- The VQ used for the Brooks popup store at the Disneyland Hotel during the 2025 RunDisney event used a generic Disneyland Resort VQ animation that wasn't used anywhere else. It uses the same robot animation as the former World of Color one (`WILB_DCA`), just not yellow. _However_, this might have been a mistake; the RunDisney VQ also uses this robot animation, but has additional running-specific animations (such as drinking water and stretching). While Brooks' captions are identical to the RunDisney one, the animations are different, so the captions do not actually line up with the animation. There also appears to be an animation error on step 2.
 - I'm unsure if World of Color was supposed to use different animations during Season of Light (`woc-sol`), as no other files for other iterations of the show (One, Happiness, etc) exist in the files. `woc-yellow` remains from when World of Color used to have different boarding groups for the Yellow and Blue entrances (now they're combined).
 - All virtual queues have an unused second tagline that does not change.
   - (0) _Your virtual wait has begun._

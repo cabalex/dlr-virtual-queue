@@ -111,6 +111,8 @@
         <option value="indy">Indiana Jones Adventure</option>
         <option value="villainsgrove">Haunted Mansion Holiday</option>
         <option value="tiana">Tiana's Bayou Adventure</option>
+        <option value="lincoln">Great Moments with Mr. Lincoln</option>
+        <option value="walt">Walt Disney - A Magical Life</option>
       </optgroup>
       <optgroup label="Disney California Adventure">
         <option value="web">Web Slingers: A Spider-Man Adventure</option>
@@ -119,6 +121,7 @@
         <option value="woc_2025">World of Color (2025-)</option>
       </optgroup>
       <option value="run">RunDisney</option>
+      <option value="resort">Brooks (RunDisney Pop-up)</option>
     </select>
     <div id="loader"></div>
     <main>
@@ -413,7 +416,7 @@
           text: "Success! You’re ready to enter.",
         },
       ],
-      woc_unused: [
+      woc_2025: [
         {
           url: "https://cdn1.parksmedia.wdprapps.disney.com/vision-dam/digital/parks-platform/parks-standard-assets/virtual-que/world-of-color/VQ_World_of_Color_01Intro_111323_v1.json",
           text: "You’re in queue for a vibrant view.",
@@ -538,6 +541,77 @@
           pre: "https://cdn1.parksmedia.wdprapps.disney.com/vision-dam/digital/parks-platform/parks-standard-assets/virtual-que/tiana-bayou-adv/08_VQ_TianasBA_Scene4-5_Transition.json",
           url: "https://cdn1.parksmedia.wdprapps.disney.com/vision-dam/digital/parks-platform/parks-standard-assets/virtual-que/tiana-bayou-adv/09_VQ_TianasBA_Scene05.json",
           text: "Louis signals with his trumpet…Tiana is now ready for you.",
+          state: 5,
+        },
+      ],
+      resort: [
+        {
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/vision-dam/digital/parks-platform/parks-standard-assets/virtual-que/VQ_DLResort_Stage0_v1.json",
+          text: "You’re in line!",
+          state: 0,
+        },
+        {
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/vision-dam/digital/parks-platform/parks-standard-assets/virtual-que/VQ_DLResort_Stage1_v1.json",
+          text: "Initiate hydration sequence.",
+          state: 1,
+        },
+        {
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/vision-dam/digital/parks-platform/parks-standard-assets/virtual-que/VQ_DLResort_Stage2_v1.json",
+          text: "Capture exciting memories!",
+          state: 2,
+        },
+        {
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/vision-dam/digital/parks-platform/parks-standard-assets/virtual-que/VQ_DLResort_Stage3_v1.json",
+          text: "Transmit energizing sound waves!",
+          state: 3,
+        },
+        {
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/vision-dam/digital/parks-platform/parks-standard-assets/virtual-que/VQ_DLResort_Stage4_v1.json",
+          text: "Flex and stretch circuitry.",
+          state: 4,
+        },
+        {
+          pre: "https://cdn1.parksmedia.wdprapps.disney.com/vision-dam/digital/parks-platform/parks-standard-assets/virtual-que/VQ_DLResort_Stage5_v1.json",
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/vision-dam/digital/parks-platform/parks-standard-assets/virtual-que/VQ_DLResort_Stage6_v1.json",
+          text: "Success! You're ready to enter.",
+          state: 5,
+        },
+      ],
+      lincoln: [
+        {
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/vision-dam/digital/parks-platform/parks-standard-assets/virtual-que/opera-house/01B_VQ_Walt_Scene01_LincolnVersion.json",
+          text: "“Here is the world of imagination, hopes and dreams.”",
+          state: 0,
+        },
+        {
+          pre: "https://cdn1.parksmedia.wdprapps.disney.com/vision-dam/digital/parks-platform/parks-standard-assets/virtual-que/opera-house/02B_VQ_Walt_Transition_LincolnVersion.json",
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/vision-dam/digital/parks-platform/parks-standard-assets/virtual-que/opera-house/03_VQ_Walt_Scene02.json",
+          text: "“Here you leave today—and visit the worlds of yesterday, tomorrow and fantasy.”",
+          state: 1,
+        },
+        {
+          pre: "https://cdn1.parksmedia.wdprapps.disney.com/vision-dam/digital/parks-platform/parks-standard-assets/virtual-que/opera-house/04_VQ_Walt_Transition.json",
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/vision-dam/digital/parks-platform/parks-standard-assets/virtual-que/opera-house/05_VQ_Walt_Scene03.json",
+          text: "“To all who come to this happy place: Welcome! Disneyland is your land.”",
+          state: 5,
+        },
+      ],
+      walt: [
+        {
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/vision-dam/digital/parks-platform/parks-standard-assets/virtual-que/opera-house/01A_VQ_Walt_Scene01_WaltVersion.json",
+          text: "“Here is the world of imagination, hopes and dreams.”",
+          state: 0,
+        },
+        {
+          pre: "https://cdn1.parksmedia.wdprapps.disney.com/vision-dam/digital/parks-platform/parks-standard-assets/virtual-que/opera-house/02A_VQ_Walt_Transition_WaltVersion.json",
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/vision-dam/digital/parks-platform/parks-standard-assets/virtual-que/opera-house/03_VQ_Walt_Scene02.json",
+          text: "“Here you leave today—and visit the worlds of yesterday, tomorrow and fantasy.”",
+          state: 1,
+        },
+        {
+          pre: "https://cdn1.parksmedia.wdprapps.disney.com/vision-dam/digital/parks-platform/parks-standard-assets/virtual-que/opera-house/04_VQ_Walt_Transition.json",
+          url: "https://cdn1.parksmedia.wdprapps.disney.com/vision-dam/digital/parks-platform/parks-standard-assets/virtual-que/opera-house/05_VQ_Walt_Scene03.json",
+          text: "“To all who come to this happy place: Welcome! Disneyland is your land.”",
           state: 5,
         },
       ],
